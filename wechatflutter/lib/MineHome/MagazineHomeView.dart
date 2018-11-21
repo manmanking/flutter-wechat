@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'Widget_CommonView.dart';
+import 'MagazineDetailView.dart';
 import 'dart:io';
 
 
@@ -32,8 +33,14 @@ class _MagazineHomeViewState extends State<MagazineHomeView>{
 
     return Padding(
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
-        child: ,
-    );
+        child: _data_response == null ?
+        Center(child: CircularProgressIndicator(),)
+            :ListView.builder(
+                itemBuilder:(c,i)=> widget_list[i],
+                itemCount: widget_list.length,
+            ),
+
+        );
 
 //    return new Scaffold(
 //      appBar: new AppBar(title: new Text("杂志列表"),),
@@ -51,13 +58,38 @@ class _MagazineHomeViewState extends State<MagazineHomeView>{
 //    );
   }
 
+  Widget buildPageView(List<Widget> list){
+
+    print(list.length);
+
+    return Container(
+      height: 276.0,
+      width: double.infinity,
+      child: PageView.builder(
+          itemBuilder:(c,i){
+            return list[i];
+          },
+        itemCount: 5,
+        controller: PageController(viewportFraction: 0.85),
+        physics: AlwaysScrollableScrollPhysics(),
+      ),
+    );
+
+  }
+
+
+
+
+
+
+
   _loadData()async {
 
     String dataUrl = "http://www.wanandroid.com/tools/mockapi/8977/kanyan";
     http.Response response = await http.get(dataUrl);
     final data = json.decode(response.body);
     _data_response = data;
-
+    _buildList();
 
 //    String dataURL = "https://api.github.com/orgs/raywenderlich/members";
 //    http.Response response = await http.get(dataURL);
@@ -79,19 +111,20 @@ class _MagazineHomeViewState extends State<MagazineHomeView>{
     _data_response.data['itemList'].sublist(0, 5).forEach((it) {
       final item = it['data'];
       list.add(Padding(
-        padding: const EdgeInsets.only(right: 8.0);
+        padding: const EdgeInsets.only(right: 8.0),
         child: Column(
-        children:<Widget>(
-        ImageItem(
-        imgUrl: item['cover']['feed'],
-      ),
+        children:<Widget>[
+          ImageItem(
+            imgUrl: item['cover']['feed'],
+          ),
           AvatarItem(
             imgUrl: item['author']['icon'],
             text1: item['author']['name'],
             text2: item['author']['description'],
-          )
-      ) ,)
-      ,
+          ),
+        ]
+
+      ),
       )
       );
     });
@@ -134,7 +167,7 @@ class _MagazineHomeViewState extends State<MagazineHomeView>{
             onTap: () {
               Navigator.of(context).push(MaterialPageRoute(
                   builder: (c) =>
-                      Detail(
+                      MagazineDetailView(
                         item: item,
                       )));
             },
