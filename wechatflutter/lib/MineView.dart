@@ -3,6 +3,7 @@ import 'MineHome/MineDetailInfoView.dart';
 import 'MineHome/MineWalletView.dart';
 import 'MineHome/MineNETView.dart';
 import 'MineHome/MagazineHomeView.dart';
+import 'CollectionView/CollectionHomeView.dart';
 class MineView extends StatefulWidget{
   @override
   _MineViewState createState() => new _MineViewState();
@@ -141,7 +142,23 @@ class _MineViewState extends State {
                  );
                },
              ),
+           ),
+           new Container(
+             color: Colors.white,
+             child: new ListTile(
+               title: new Text("商城"),
+               subtitle: new Text("要剁手了"),
+               leading: new Icon(Icons.shopping_cart),
+               onTap: (){
+                 Navigator.of(context).push(
+                   MaterialPageRoute(builder: (context){
+                     return CollectionHomeView();
+                   })
+                 );
+               },
+             ),
            )
+
          ],
 
         ),
