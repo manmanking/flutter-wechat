@@ -1,9 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:fast_qr_reader_view/fast_qr_reader_view.dart';
+import 'dart:async';
 import 'HomeView.dart';
 import 'DiscoverView.dart';
 import 'ContactView.dart';
 import 'MineView.dart';
-void main() => runApp(MyApp());
+
+
+//List<CameraDescription> cameras;
+
+
+void main() async {
+
+//  try {
+//    cameras = await availableCameras();
+//  } on QRReaderException catch (e){
+//    //Error(e.code,e.description);
+//    print('Error: $(e.code)\nError Message: $(e.description)');
+//  }
+
+  //return MyApp();
+    runApp(MyApp());
+
+  //try {
+  //    cameras = await availableCameras();
+  //  } on QRReaderException catch (e) {
+  //    logError(e.code, e.description);
+  //  }
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

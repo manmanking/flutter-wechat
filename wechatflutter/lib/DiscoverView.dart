@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'QRCodeHome/QRCodeHomeView.dart';
 class DiscoverView extends StatefulWidget{
   @override
   _DiscoverViewState createState() => new _DiscoverViewState();
@@ -31,6 +32,22 @@ class _DiscoverViewState extends State {
                 child: new ListTile(
                   leading: new Icon(Icons.scanner),
                   title: new Text("扫一扫"),
+                  onTap: (){
+                    Navigator.of(context).push(
+                      MaterialPageRoute(builder: (context){
+                        return QRCodeHomeView();
+                      })
+
+                    );
+                  },
+                  /*
+                  * Navigator.of(context).push(
+                   MaterialPageRoute(builder: (context){
+                     return CollectionHomeView();
+                   })
+                 );
+                  *
+                  * */
                   
                 ),
               ),
